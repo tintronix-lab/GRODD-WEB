@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRODD — Smart Planter & Botanical Ecosystem</title>
+    <meta name="description" content="GRODD bridges Scandinavian design, precision automated micro-dosing, real-time IoT edge telemetry, and seamless mobile application control for indoor plant ecosystems.">
+
+    <!-- Fonts: Instrument Serif + Plus Jakarta Sans + Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #EEF1EB;        /* Soft sage-tinted background */
+            --bg-surface: #F6F8F5;        /* Light card surface */
+            --bg-card: #FFFFFF;           /* Crisp white card */
+            --bg-dark: #1E3A2B;           /* Deep Forest Green */
+            --bg-dark-surface: #14281E;   /* Deepest Forest Night */
+            
+            --text-main: #1C221E;         /* Dark Charcoal */
+            --text-muted: #647067;        /* Soft Sage Charcoal */
+            --text-light: #F4F6F3;        /* Warm Cream White */
+            --text-light-muted: #9BB0A3;  /* Muted Sage White */
+
+            --accent-green: #1E3A2B;      /* Brand Deep Green */
+            --accent-emerald: #28A745;    /* Active Status Green */
+            --accent-soft-green: #DCE5DC; /* Soft Green Pill Container */
+
+            --border-subtle: rgba(30, 58, 43, 0.08);
+            --border-strong: rgba(30, 58, 43, 0.18);
+            --border-dark-subtle: rgba(255, 255, 255, 0.1);
+
+            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-mono: 'Space Grotesk', monospace;
+
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --radius-full: 9999px;
+
+            --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+            --container-max: 1320px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        h1, h2, h3, .serif-heading {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.05;
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            background: var(--accent-soft-green);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--bg-dark);
+            margin-bottom: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 30px;
+            border-radius: var(--radius-full);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .btn-dark {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .btn-dark:hover {
+            background: #12251B;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(30, 58, 43, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border-color: var(--border-strong);
+        }
+
+        .btn-outline:hover {
+            background: rgba(30, 58, 43, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            padding: 12px 0;
+            background: rgba(238, 241, 245, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--bg-dark);
+            font-weight: 500;
+        }
+
+        .brand-icon-svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--bg-dark);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 140px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(3.4rem, 6.5vw, 5.8rem);
+            color: var(--bg-dark);
+            margin-bottom: 24px;
+        }
+
+        .hero-title i {
+            font-family: var(--font-serif);
+            font-style: italic;
+        }
+
+        .app-phone-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-phone-card {
+            width: 320px;
+            background: var(--bg-primary);
+            border: 8px solid #1C221E;
+            border-radius: 48px;
+            box-shadow: 0 30px 60px -10px rgba(30, 58, 43, 0.25);
+            padding: 20px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-notch {
+            width: 90px;
+            height: 20px;
+            background: #1C221E;
+            border-radius: 10px;
+            margin: 0 auto 16px;
+        }
+
+        .app-header-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--bg-dark);
+            margin-bottom: 16px;
+        }
+
+        .app-alert-banner {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            margin-bottom: 16px;
+        }
+
+        .app-plant-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            border: 1px solid var(--border-subtle);
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .app-ring-gauge {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 6px solid var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--bg-dark);
+            margin: 0 auto 12px;
+        }
+
+        /* STUDIO CONFIGURATOR */
+        .studio-section {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 60px;
+            margin-top: 40px;
+            align-items: center;
+        }
+
+        .control-group {
+            margin-bottom: 28px;
+        }
+
+        .control-label {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .pill-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pill-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .pill-btn:hover {
+            border-color: var(--bg-dark);
+        }
+
+        .pill-btn.active {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border-color: var(--bg-dark);
+        }
+
+        .preview-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            text-align: center;
+        }
+
+        .preview-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            background-color: #E8ECE6;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.35s ease-in-out, transform 0.5s ease;
+        }
+
+        .preview-image.loading {
+            opacity: 0.2;
+            transform: scale(1.02);
+        }
+
+        .specs-badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* APP SHOWCASE SECTION */
+        .app-showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .app-screen-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.04);
+        }
+
+        .app-screen-card h3 {
+            font-size: 2.2rem;
+            color: var(--bg-dark);
+            margin-bottom: 12px;
+        }
+
+        .telemetry-row {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg-primary);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            font-size: 0.88rem;
+        }
+
+        .telemetry-val {
+            font-weight: 600;
+            color: var(--bg-dark);
+        }
+
+        /* HARDWARE & SYSTEM ARCHITECTURE */
+        .dark-section {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .dark-section p {
+            color: var(--text-light-muted);
+        }
+
+        .dark-section .section-tag {
+            background: rgba(255,255,255,0.12);
+            color: var(--text-light);
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 60px;
+        }
+
+        .spec-card {
+            background: var(--bg-dark-surface);
+            border: 1px solid var(--border-dark-subtle);
+            border-radius: var(--radius-md);
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .spec-card h4 {
+            font-family: var(--font-mono);
+            color: #8FD8A0;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .spec-card h3 {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .arch-diagram {
+            background: var(--bg-dark-surface);
+            border: 1px solid var(--border-dark-subtle);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            margin-top: 40px;
+        }
+
+        .arch-pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .arch-step {
+            flex: 1;
+            min-width: 180px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-dark-subtle);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .arch-step-title {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #8FD8A0;
+            margin-bottom: 6px;
+        }
+
+        .arch-step-desc {
+            font-size: 0.88rem;
+            color: var(--text-light-muted);
+        }
+
+        .arch-arrow {
+            color: #8FD8A0;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 60px 0 40px;
+            background: var(--bg-primary);
+        }
+
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid, .config-grid, .app-showcase-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+            .arch-arrow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="brand-logo">
+                <svg class="brand-icon-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 10C50 10 20 48 20 68 C20 84.5685 33.4315 98 50 98 C66.5685 98 80 84.5685 80 68 C80 48 50 10 50 10Z" fill="#1E3A2B"/>
+                    <path d="M50 38 C50 38 42 56 42 66 C42 70.4183 45.5817 74 50 74 C54.4183 74 58 70.4183 58 66 C58 56 50 38 50 38Z" fill="#EEF1EB"/>
+                    <path d="M50 74 L50 82" stroke="#EEF1EB" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                GRODD
+            </a>
+            <ul class="nav-links">
+                <li><a href="#studio" class="nav-link">Design Studio</a></li>
+                <li><a href="#app" class="nav-link">The App</a></li>
+                <li><a href="#hardware" class="nav-link">System Engineering</a></li>
+            </ul>
+            <a href="#studio" class="btn btn-dark" style="padding: 10px 22px; font-size: 0.88rem;">
+                Design Your Space
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="section-tag">BOTANICAL TECHNOLOGY v2.6</div>
+                    <h1 class="hero-title">Your plants.<br>Your space.<br><i>Perfectly connected.</i></h1>
+                    <p style="margin-bottom: 32px; max-width: 500px;">Combine Scandinavian ceramic design with precision automated micro-dosing and cloud-linked IoT telemetry. Designed in Stockholm.</p>
+                    <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                        <a href="#studio" class="btn btn-dark">Design Your GRODD</a>
+                        <a href="#app" class="btn btn-outline">Explore App UI</a>
+                    </div>
+                </div>
+
+                <!-- Replicated Phone UI -->
+                <div class="app-phone-container">
+                    <div class="app-phone-card">
+                        <div class="phone-notch"></div>
+                        <div class="app-header-title">Your plants</div>
+                        
+                        <div class="app-alert-banner">
+                            <span>🔔 2 Plant Attention Required</span>
+                            <span style="font-weight:600; text-decoration:underline;">View</span>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                            <div class="app-plant-card">
+                                <div class="app-ring-gauge">97%</div>
+                                <div style="font-family:var(--font-serif); font-size:1.2rem; font-weight:600; color:var(--bg-dark);">Monstera</div>
+                                <div style="font-size:0.75rem; color:var(--accent-emerald);">● Healthy</div>
+                                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:8px;">Water: 97% • Connected</div>
+                            </div>
+                            <div class="app-plant-card">
+                                <div class="app-ring-gauge" style="border-color:#28A745;">93%</div>
+                                <div style="font-family:var(--font-serif); font-size:1.2rem; font-weight:600; color:var(--bg-dark);">Fiddle Fig</div>
+                                <div style="font-size:0.75rem; color:var(--accent-emerald);">● Healthy</div>
+                                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:8px;">Water: 93% • Battery 85%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE STUDIO CONFIGURATOR -->
+    <section id="studio" class="studio-section">
+        <div class="container">
+            <div style="text-align: center; max-width: 600px; margin: 0 auto 40px;">
+                <div class="section-tag">Interactive Studio</div>
+                <h2 style="font-size: clamp(2.5rem, 4vw, 3.8rem); color: var(--bg-dark);">Design for your room.</h2>
+                <p>Configure smart ceramic planters matched seamlessly to room lighting and botanical choices.</p>
+            </div>
+
+            <div class="config-grid">
+                <div>
+                    <!-- ROOM SELECTION -->
+                    <div class="control-group">
+                        <div class="control-label">01 / Environment & Room</div>
+                        <div class="pill-options" id="room-select">
+                            <button class="pill-btn active" data-val="living">Living Room</button>
+                            <button class="pill-btn" data-val="bedroom">Bedroom</button>
+                            <button class="pill-btn" data-val="office">Sunlit Office</button>
+                        </div>
+                    </div>
+
+                    <!-- PLANT SPECIES -->
+                    <div class="control-group">
+                        <div class="control-label">02 / Plant Species</div>
+                        <div class="pill-options" id="plant-select">
+                            <button class="pill-btn active" data-val="monstera">Monstera Deliciosa</button>
+                            <button class="pill-btn" data-val="fiddle">Fiddle Leaf Fig</button>
+                            <button class="pill-btn" data-val="palm">Majesty Palm</button>
+                        </div>
+                    </div>
+
+                    <!-- CERAMIC FINISH -->
+                    <div class="control-group">
+                        <div class="control-label">03 / Ceramic Planter Finish</div>
+                        <div class="pill-options" id="finish-select">
+                            <button class="pill-btn active" data-val="Nordic Off-White">Nordic Off-White</button>
+                            <button class="pill-btn" data-val="Forest Moss Green">Forest Moss Green</button>
+                            <button class="pill-btn" data-val="Charcoal Stone">Charcoal Stone</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PREVIEW CARD WITH FULL DYNAMIC MATRIX -->
+                <div class="preview-card">
+                    <div class="preview-image-wrapper">
+                        <img id="studio-img" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80" class="preview-image" alt="GRODD Plant Configurator Preview">
+                    </div>
+                    <h3 id="studio-title" style="font-size:2rem; color:var(--bg-dark);">Monstera in Living Room</h3>
+                    <p id="studio-subtitle" style="font-size:0.92rem; margin-top:4px;">Finish: Nordic Off-White • IoT Edge Active</p>
+                    
+                    <div class="specs-badge-row">
+                        <span id="badge-light">⚡ Light: 1.6k lx</span>
+                        <span id="badge-water">💧 Target Moisture: 45%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APP SHOWCASE -->
+    <section id="app">
+        <div class="container">
+            <div style="max-width: 600px; margin-bottom: 40px;">
+                <div class="section-tag">Native Mobile Experience</div>
+                <h2 style="font-size: clamp(2.5rem, 4.5vw, 4rem); color: var(--bg-dark);">Tailored plant intelligence.</h2>
+                <p>Designed with elegant typography, real-time telemetry metrics, and custom threshold controls.</p>
+            </div>
+
+            <div class="app-showcase-grid">
+                <div class="app-screen-card">
+                    <h3>Monstera</h3>
+                    <p style="font-size:0.85rem; color:var(--accent-emerald); font-weight:600; margin-bottom:16px;">● Healthy • Synced Just now</p>
+                    
+                    <div class="telemetry-row">
+                        <span>Soil Moisture Target</span>
+                        <span class="telemetry-val">45%</span>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Ambient Light</span>
+                        <span class="telemetry-val">1.6k lx</span>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Temperature</span>
+                        <span class="telemetry-val">20.9°C</span>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Water Reservoir</span>
+                        <span class="telemetry-val" style="color:var(--accent-emerald);">Optimal (88%)</span>
+                    </div>
+                </div>
+
+                <div class="app-screen-card">
+                    <h3>Watering Schedule</h3>
+                    <p style="font-size:0.85rem; margin-bottom:16px;">Precision automated micro-dosing control.</p>
+
+                    <div class="telemetry-row">
+                        <span>Soil Moisture Level</span>
+                        <span class="telemetry-val">45%</span>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Pump Pulse Duration</span>
+                        <span class="telemetry-val">3 seconds</span>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Automatic Micro-Dosing</span>
+                        <span class="telemetry-val" style="color:var(--accent-emerald);">ENABLED</span>
+                    </div>
+                </div>
+
+                <div class="app-screen-card">
+                    <h3>Device Settings</h3>
+                    <p style="font-size:0.85rem; margin-bottom:16px;">System setup & diagnostics.</p>
+
+                    <div class="telemetry-row">
+                        <span>Device ID</span>
+                        <span class="telemetry-val">GRODD-DD0004</span>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Protocol</span>
+                        <span class="telemetry-val">Thread / Wi-Fi Sync</span>
+                    </div>
+                    <div class="telemetry-row">
+                        <span>Firmware</span>
+                        <span class="telemetry-val">v2.4.0 OTA Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HARDWARE & SYSTEM ENGINEERING -->
+    <section id="hardware" class="dark-section">
+        <div class="container">
+            <div style="max-width: 680px;">
+                <div class="section-tag">System Architecture & IoT Engineering</div>
+                <h2 style="font-size: clamp(2.5rem, 4.5vw, 4rem); color: var(--text-light);">Connected Botanical Intelligence.</h2>
+                <p>Every GRODD vessel combines precision micro-fluidics, real-time edge telemetry, and resilient cloud integration to create a seamless feedback loop for plant health.</p>
+            </div>
+
+            <!-- CORE HARDWARE & IOT PILLARS -->
+            <div class="spec-grid">
+                <div class="spec-card">
+                    <div>
+                        <h4>01 / Sensing & Control</h4>
+                        <h3>Micro-Dosing Actuation</h3>
+                        <p style="font-size:0.92rem; margin-top:8px;">Sub-surface piezoelectric pumps deliver precise, burst-controlled water pulses directly to the root zone, eliminating over-saturation and soil compaction while conserving liquid.</p>
+                    </div>
+                </div>
+                <div class="spec-card">
+                    <div>
+                        <h4>02 / Telemetry Engine</h4>
+                        <h3>Multi-Sensor Edge Array</h3>
+                        <p style="font-size:0.92rem; margin-top:8px;">High-frequency capacitive soil sensors, calibrated ambient lux meters, and thermal monitors capture environmental fluctuations without degrading soil composition over time.</p>
+                    </div>
+                </div>
+                <div class="spec-card">
+                    <div>
+                        <h4>03 / Cloud Platform</h4>
+                        <h3>Adaptive Moisture Analytics</h3>
+                        <p style="font-size:0.92rem; margin-top:8px;">Low-latency telemetry streaming transmits data to the GRODD cloud engine, automatically tailoring hydration thresholds based on seasonal light cycles and species needs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SYSTEM PIPELINE DIAGRAM -->
+            <div class="arch-diagram">
+                <h4 style="font-family: var(--font-mono); color: #8FD8A0; font-size: 0.85rem; text-transform: uppercase;">End-to-End System Loop</h4>
+                <div class="arch-pipeline">
+                    <div class="arch-step">
+                        <div class="arch-step-title">1. Planter Hardware</div>
+                        <div class="arch-step-desc">Captures moisture, light & ambient metrics at the edge</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-step">
+                        <div class="arch-step-title">2. IoT Gateway & Cloud</div>
+                        <div class="arch-step-desc">Ingests telemetry stream & calculates target curve</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-step">
+                        <div class="arch-step-title">3. Mobile App</div>
+                        <div class="arch-step-desc">Displays metrics, triggers alerts & allows user overrides</div>
+                    </div>
+                    <div class="arch-arrow">→</div>
+                    <div class="arch-step">
+                        <div class="arch-step-title">4. Closed-Loop Action</div>
+                        <div class="arch-step-desc">Executes precise micro-dosing pulse to maintain equilibrium</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-flex">
+                <a href="#" class="brand-logo" style="font-size: 1.5rem;">
+                    <svg class="brand-icon-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:26px; height:26px;">
+                        <path d="M50 10C50 10 20 48 20 68 C20 84.5685 33.4315 98 50 98 C66.5685 98 80 84.5685 80 68 C80 48 50 10 50 10Z" fill="#1E3A2B"/>
+                        <path d="M50 38 C50 38 42 56 42 66 C42 70.4183 45.5817 74 50 74 C54.4183 74 58 70.4183 58 66 C58 56 50 38 50 38Z" fill="#EEF1EB"/>
+                    </svg>
+                    GRODD Ecosystems
+                </a>
+                <p style="font-size: 0.85rem;">© 2026 GRODD. Designed for your space. Cared for by GRODD.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE MATRIX SCRIPTS -->
+    <script>
+        // Navbar Scroll UI Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // FULL COMBINATORIAL IMAGE & METRIC MATRIX
+        const imageMatrix = {
+            living: {
+                monstera: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80",
+                fiddle: "https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1000&q=80",
+                palm: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+            },
+            bedroom: {
+                monstera: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=80",
+                fiddle: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80",
+                palm: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=1000&q=80"
+            },
+            office: {
+                monstera: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=80",
+                fiddle: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1000&q=80",
+                palm: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1000&q=80"
+            }
+        };
+
+        const roomLabels = {
+            living: "Living Room",
+            bedroom: "Bedroom",
+            office: "Sunlit Office"
+        };
+
+        const plantLabels = {
+            monstera: "Monstera Deliciosa",
+            fiddle: "Fiddle Leaf Fig",
+            palm: "Majesty Palm"
+        };
+
+        const roomLightMetrics = {
+            living: "1.6k lx",
+            bedroom: "850 lx",
+            office: "2.8k lx"
+        };
+
+        const plantWaterMetrics = {
+            monstera: "45%",
+            fiddle: "55%",
+            palm: "60%"
+        };
+
+        // State tracker
+        let selectedRoom = 'living';
+        let selectedPlant = 'monstera';
+        let selectedFinish = 'Nordic Off-White';
+
+        function initPillGroup(containerId, onSelect) {
+            const container = document.getElementById(containerId);
+            const buttons = container.querySelectorAll('.pill-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const val = btn.getAttribute('data-val');
+                    onSelect(val);
+                });
+            });
+        }
+
+        initPillGroup('room-select', (val) => {
+            selectedRoom = val;
+            updateStudioDisplay();
+        });
+
+        initPillGroup('plant-select', (val) => {
+            selectedPlant = val;
+            updateStudioDisplay();
+        });
+
+        initPillGroup('finish-select', (val) => {
+            selectedFinish = val;
+            updateStudioDisplay();
+        });
+
+        function updateStudioDisplay() {
+            const img = document.getElementById('studio-img');
+            const title = document.getElementById('studio-title');
+            const subtitle = document.getElementById('studio-subtitle');
+            const badgeLight = document.getElementById('badge-light');
+            const badgeWater = document.getElementById('badge-water');
+
+            img.classList.add('loading');
+
+            setTimeout(() => {
+                const newSrc = imageMatrix[selectedRoom][selectedPlant];
+                img.src = newSrc;
+                
+                title.innerText = `${plantLabels[selectedPlant]} in ${roomLabels[selectedRoom]}`;
+                subtitle.innerText = `Finish: ${selectedFinish} • IoT Edge Active`;
+                
+                badgeLight.innerText = `⚡ Light: ${roomLightMetrics[selectedRoom]}`;
+                badgeWater.innerText = `💧 Target Moisture: ${plantWaterMetrics[selectedPlant]}`;
+
+                img.onload = () => {
+                    img.classList.remove('loading');
+                };
+                img.classList.remove('loading');
+            }, 200);
+        }
+
+        // Background WebGL Canvas
+        function initHeroCanvas() {
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const group = new THREE.Group();
+            const geo = new THREE.IcosahedronGeometry(1, 2);
+
+            for (let i = 0; i < 12; i++) {
+                const mat = new THREE.MeshBasicMaterial({ color: 0x1E3A2B, wireframe: true, opacity: 0.15, transparent: true });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.position.set((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 6, (Math.random() - 0.5) * 4);
+                group.add(mesh);
+            }
+            scene.add(group);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                group.rotation.y += 0.0012;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        window.addEventListener('load', initHeroCanvas);
+    </script>
+</body>
+</html>
