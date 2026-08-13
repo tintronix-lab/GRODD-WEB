@@ -1,56 +1,97 @@
-/* Shared by privacy.html and support.html. The landing page keeps its own
-   inline styles and its Three.js scene; these two are documents, so they
-   take the same palette and typefaces and none of the motion. */
+/* The app's own design system, on the web.
+   Tokens copied from grodd-app/src/theme/tokens.ts rather than eyeballed —
+   a support page that is nearly the app's colours reads as a different
+   product, and this is the page somebody lands on when something has gone
+   wrong. Fraunces for display, system sans for text, exactly as the app. */
 :root {
-  --bg-primary: #EEF1EB; --bg-surface: #F6F8F5; --bg-card: #FFFFFF;
-  --bg-dark: #1E3A2B; --text-main: #1C221E; --text-muted: #647067;
-  --text-light: #F4F6F3; --accent-green: #1E3A2B; --accent-soft-green: #DCE5DC;
-  --border-subtle: rgba(30, 58, 43, 0.08); --border-strong: rgba(30, 58, 43, 0.18);
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'Space Grotesk', monospace;
+  --ground: #ECEFE7;
+  --surface: #F9FAF6;
+  --surface-sunk: #FFFFFF;
+  --ink: #14251C;
+  --ink-dim: #5C6B60;
+  --ink-faint: #93A197;
+  --line: #D8DECF;
+  --forest: #1D4732;
+  --leaf: #4E8A5F;
+  --water: #4E86AC;
+  --attention: #A8741C;
+  --fault: #9C3B2C;
+  --on-forest: #F6F8F4;
+  --r-md: 8px; --r-lg: 14px; --r-xl: 20px;
+  --display: 'Fraunces', Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 * { box-sizing: border-box; }
 body {
-  margin: 0; background: var(--bg-primary); color: var(--text-main);
-  font-family: var(--font-sans); font-size: 17px; line-height: 1.7;
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: var(--sans); font-size: 17px; line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
-.bar {
-  border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface);
-}
+a { color: var(--forest); }
+
+/* The app's own header: mark, wordmark, nothing else. */
+.bar { background: var(--surface); border-bottom: 1px solid var(--line); }
 .bar .inner {
-  max-width: 46rem; margin: 0 auto; padding: 1rem 1.5rem;
-  display: flex; align-items: center; gap: .8rem;
+  max-width: 44rem; margin: 0 auto; padding: .9rem 1.4rem;
+  display: flex; align-items: center; gap: .6rem;
 }
-.bar .mark {
-  width: 34px; height: 34px; border-radius: 9px; background: var(--accent-green);
-  color: var(--text-light); display: grid; place-items: center;
-  font-family: var(--font-serif); font-size: 20px;
+.bar img { width: 34px; height: 34px; border-radius: 9px; }
+.bar .word {
+  font-family: var(--display); font-weight: 600; font-size: 1.3rem;
+  color: var(--forest); text-decoration: none; letter-spacing: -0.01em;
 }
-.bar a.home { color: var(--accent-green); text-decoration: none; font-weight: 600; letter-spacing: -0.01em; }
-.wrap { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
-h1 { font-family: var(--font-serif); font-size: clamp(2.2rem, 6vw, 3rem); font-weight: 400; line-height: 1.1; margin: 0 0 .75rem; }
-h2 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 400; margin: 2.75rem 0 .6rem; }
-h3 { font-size: 1rem; margin: 1.75rem 0 .35rem; }
-p, li { color: var(--text-muted); }
-strong { color: var(--text-main); font-weight: 600; }
-a { color: var(--accent-green); }
-.lede { font-size: 1.15rem; color: var(--text-main); }
+.bar nav { margin-left: auto; display: flex; gap: 1.1rem; font-size: .95rem; }
+.bar nav a { color: var(--ink-dim); text-decoration: none; }
+.bar nav a[aria-current] { color: var(--forest); font-weight: 600; }
+
+.wrap { max-width: 44rem; margin: 0 auto; padding: 3rem 1.4rem 5rem; }
+h1 {
+  font-family: var(--display); font-weight: 600; letter-spacing: -0.02em;
+  font-size: clamp(2.1rem, 6vw, 2.9rem); line-height: 1.08; margin: 0 0 .6rem;
+}
+h2 {
+  font-family: var(--display); font-weight: 600; font-size: 1.45rem;
+  margin: 2.6rem 0 .7rem; letter-spacing: -0.01em;
+}
+p, li { color: var(--ink-dim); }
+strong { color: var(--ink); font-weight: 600; }
+.lede { font-size: 1.12rem; color: var(--ink); }
+
+/* Cards, as the app draws them: white on ground, hairline, generous. */
 .card {
-  background: var(--bg-card); border: 1px solid var(--border-subtle);
-  border-radius: 16px; padding: 1.3rem 1.5rem; margin: 1.75rem 0;
+  background: var(--surface-sunk); border: 1px solid var(--line);
+  border-radius: var(--r-lg); padding: 1.15rem 1.35rem; margin: 1.4rem 0;
 }
 .card p:last-child, .card ul:last-child { margin-bottom: 0; }
-.tag {
-  display: inline-block; font-family: var(--font-mono); font-size: .72rem;
-  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-green);
-  background: var(--accent-soft-green); border-radius: 999px; padding: .3rem .7rem;
-  margin-bottom: 1.25rem;
+.card h3 { margin: 0 0 .3rem; font-size: 1rem; color: var(--ink); }
+
+/* The status row the app uses everywhere: a coloured dot and a sentence.
+   Same three tones, same meanings — good, attention, fault. */
+.row { display: flex; gap: .8rem; align-items: flex-start; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; padding-bottom: 0; }
+.row:first-child { padding-top: 0; }
+.dot { width: 9px; height: 9px; border-radius: 999px; flex: none; margin-top: .48rem; }
+.dot.good { background: var(--leaf); }
+.dot.attention { background: var(--attention); }
+.dot.fault { background: var(--fault); }
+.dot.water { background: var(--water); }
+.row .what { color: var(--ink); font-weight: 600; }
+.row .why { color: var(--ink-dim); font-size: .97rem; }
+
+/* Numbered steps, as the clip's press screen draws them. */
+.steps { list-style: none; padding: 0; margin: 1rem 0 0; }
+.steps li { display: flex; gap: .75rem; align-items: baseline; margin-bottom: .6rem; }
+.steps .n {
+  flex: none; width: 22px; height: 22px; border-radius: 999px;
+  background: var(--forest); color: var(--on-forest);
+  font-size: .78rem; font-weight: 600; display: grid; place-items: center;
 }
-table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .95rem; }
-th, td { text-align: left; padding: .6rem .5rem; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
-th { color: var(--text-main); font-weight: 600; }
-td { color: var(--text-muted); }
-.updated { margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); font-size: .9rem; color: var(--text-muted); }
-.foot { display: flex; gap: 1.5rem; margin-top: 1rem; }
+.pill {
+  display: inline-block; border-radius: 999px; padding: .2rem .65rem;
+  font-size: .78rem; font-weight: 600; background: var(--ground); color: var(--forest);
+}
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .95em; }
+.updated {
+  margin-top: 3rem; padding-top: 1.1rem; border-top: 1px solid var(--line);
+  font-size: .9rem; color: var(--ink-faint);
+}

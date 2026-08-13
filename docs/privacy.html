@@ -4,14 +4,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy — Grodd</title>
 <meta name="description" content="What the Grodd app and pots collect, what stays on your phone, and what never leaves it.">
+<link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_page.css">
 </head><body>
-<div class="bar"><div class="inner"><div class="mark">G</div><a class="home" href="./">Grodd</a></div></div>
+<div class="bar"><div class="inner">
+  <img src="icon.png" alt="">
+  <a class="word" href="./">Grodd</a>
+  <nav><a href="support.html">Support</a><a href="privacy.html" aria-current="page">Privacy</a></nav>
+</div></div>
 <div class="wrap">
-<span class="tag">Privacy</span>
 <h1>What Grodd knows about you</h1>
 <p class="lede">A plant pot does not need to know much. This page says exactly what the app and the pots collect, where it goes, and what never leaves your phone.</p>
 
@@ -23,14 +27,23 @@
 
 <h2>What your pots send</h2>
 <p>A pot reports to a Grodd server so that the app can show you what it is doing. Every value below is about the pot, not about you:</p>
-<table>
-<tr><th>Reading</th><th>Why</th></tr>
-<tr><td>Soil moisture, reservoir level</td><td>To show the plant's state and decide whether watering is due</td></tr>
-<tr><td>Battery voltage, Wi-Fi signal strength</td><td>To tell a flat pot from an out-of-range one</td></tr>
-<tr><td>The watering decision it reached</td><td>So the app can say why a pot did or did not water</td></tr>
-<tr><td>Pot identifier, hardware and firmware version</td><td>To send the right update to the right board</td></tr>
-<tr><td>Diagnostic records</td><td>Faults and events, so a pot that misbehaves can be understood</td></tr>
-</table>
+<div class="card">
+  <div class="row"><span class="dot water"></span><span>
+    <span class="what">Soil moisture and reservoir level</span>
+    <div class="why">To show the plant's state and decide whether watering is due</div></span></div>
+  <div class="row"><span class="dot good"></span><span>
+    <span class="what">Battery voltage and Wi-Fi signal</span>
+    <div class="why">To tell a flat pot from one that is simply out of range</div></span></div>
+  <div class="row"><span class="dot good"></span><span>
+    <span class="what">The watering decision it reached</span>
+    <div class="why">So the app can say why a pot did or did not water</div></span></div>
+  <div class="row"><span class="dot good"></span><span>
+    <span class="what">Pot identifier, hardware and firmware version</span>
+    <div class="why">To send the right update to the right board</div></span></div>
+  <div class="row"><span class="dot attention"></span><span>
+    <span class="what">Diagnostic records</span>
+    <div class="why">Faults and events, so a pot that misbehaves can be understood</div></span></div>
+</div>
 
 <h2>What the app stores about your account</h2>
 <ul>

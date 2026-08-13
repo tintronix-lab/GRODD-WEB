@@ -4,45 +4,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Support — Grodd</title>
 <meta name="description" content="Help with a Grodd pot: setup, watering, updates, and how to reach a person.">
+<link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="_page.css">
 </head><body>
-<div class="bar"><div class="inner"><div class="mark">G</div><a class="home" href="./">Grodd</a></div></div>
+
+<div class="bar"><div class="inner">
+  <img src="icon.png" alt="">
+  <a class="word" href="./">Grodd</a>
+  <nav><a href="support.html" aria-current="page">Support</a><a href="privacy.html">Privacy</a></nav>
+</div></div>
+
 <div class="wrap">
-<span class="tag">Support</span>
 <h1>Help with your pot</h1>
-<p class="lede">Most problems are one of four things. If none of these is yours, write to us — a person answers.</p>
+<p class="lede">Almost everything that goes wrong is one of four things, and your pot will have told the app which. Start there — then write to us if it is none of them.</p>
 
 <div class="card">
-<p><strong>Email:</strong> <a href="mailto:tintronix@gmail.com">tintronix@gmail.com</a></p>
-<p>Tell us the pot's serial if you have it — it is the <span style="font-family:var(--font-mono)">GRODD-XXXXXX</span> code on the base, and it is also shown in the app under the pot's Technical info.</p>
+  <h3>Talk to a person</h3>
+  <p><a href="mailto:tintronix@gmail.com">tintronix@gmail.com</a> — a person answers, not a form.</p>
+  <p>Include the pot's serial if you can: the <span class="mono">GRODD-XXXXXX</span> code on its base, also shown in the app under the pot's Technical info.</p>
 </div>
 
-<h2>The app cannot find my pot during setup</h2>
-<p>A pot announces itself over Bluetooth for a while after it is switched on, then goes quiet to save power. <strong>One short press</strong> of the button wakes it up again and makes it visible.</p>
-<p>Keep the phone next to the pot while it sets up, and hold the button only briefly — a ten-second hold is the factory reset, which erases the pot's setup instead.</p>
+<h2>The app cannot find my pot</h2>
+<p>A pot announces itself over Bluetooth for a while after switching on, then goes quiet to save power. It is not lost — it is asleep.</p>
+<ol class="steps">
+  <li><span class="n">1</span><span>Find the small button on the pot.</span></li>
+  <li><span class="n">2</span><span>Give it <strong>one short press</strong> — a tap, not a hold.</span></li>
+  <li><span class="n">3</span><span>Keep the phone beside the pot while it sets up.</span></li>
+</ol>
+<p style="margin-top:1rem"><strong>Keep the press brief.</strong> Holding the same button for ten seconds is the factory reset, which erases the pot's setup instead of waking it.</p>
 
 <h2>My pot is not watering</h2>
-<p>The pot decides this for itself, and the app says which reason applies. The common ones:</p>
-<table>
-<tr><th>What the app says</th><th>What to do</th></tr>
-<tr><td>The reservoir is empty</td><td>Refill it. The pot will not run a pump against an empty tank.</td></tr>
-<tr><td>No level reading</td><td>The water sensor has not been calibrated yet — do it from the pot's settings.</td></tr>
-<tr><td>The soil is wet enough</td><td>Nothing. It is working.</td></tr>
-<tr><td>A fault is latched</td><td>The pot watered and the soil did not respond, so it stopped rather than keep pumping. Check the tube and the pump, then clear the fault in the app.</td></tr>
-</table>
-<p>These limits live in the pot itself, not in the app, so they hold even when the pot is offline. The cloud can make them stricter and never looser.</p>
+<p>The pot decides this for itself and tells the app which reason applied. These limits live in the pot's own firmware, not in the cloud, so they hold even when it is offline — and the cloud can make them stricter, never looser.</p>
+<div class="card">
+  <div class="row"><span class="dot attention"></span><span>
+    <span class="what">The reservoir is empty</span>
+    <div class="why">Refill it. A pot will not run its pump against an empty tank.</div></span></div>
+  <div class="row"><span class="dot attention"></span><span>
+    <span class="what">No level reading</span>
+    <div class="why">The water sensor has not been calibrated yet. Do it from the pot's settings — it takes two readings, empty and full.</div></span></div>
+  <div class="row"><span class="dot good"></span><span>
+    <span class="what">The soil is wet enough</span>
+    <div class="why">Nothing to do. This is the pot working.</div></span></div>
+  <div class="row"><span class="dot fault"></span><span>
+    <span class="what">A fault is latched</span>
+    <div class="why">The pot watered, the soil did not respond, and it stopped rather than keep pumping into a blockage or a spill. Check the tube and the pump, then clear the fault in the app.</div></span></div>
+</div>
 
 <h2>My pot has gone quiet</h2>
-<p>A pot on mains reports every minute or two. A pot on battery wakes about every fifteen minutes and is unreachable in between — that is normal and not a fault. If it has been silent far longer than that, check power first, then that it is still in range of your Wi-Fi.</p>
+<div class="card">
+  <div class="row"><span class="dot good"></span><span>
+    <span class="what">Plugged in — reports every minute or two</span>
+    <div class="why">Silence longer than about five minutes means unplugged or off the network.</div></span></div>
+  <div class="row"><span class="dot good"></span><span>
+    <span class="what">On battery — wakes about every fifteen minutes</span>
+    <div class="why">Unreachable in between, and that is the design rather than a fault. It is how a battery lasts.</div></span></div>
+</div>
+<p>If a pot has been silent far longer than its own rhythm, check power first, then that it is still within reach of your Wi-Fi.</p>
 
 <h2>Updating a pot</h2>
-<p>Updates arrive by themselves if you leave automatic updates on, usually within a few minutes of a release. You can also start one from the pot's settings. An update downloads, verifies itself on the pot, restarts, and is only kept once the pot has checked in on the new version — if it cannot, the pot returns to the version it had.</p>
+<p>Updates arrive by themselves if automatic updates are on, usually within a few minutes of a release. You can also start one from the pot's settings.</p>
+<p>An update downloads, the pot <strong>verifies it itself</strong>, restarts, and is only kept once the pot has checked in on the new version. If it cannot, the pot puts the old version back on its own — there is no state where an update leaves a pot half-installed.</p>
 
 <h2>Starting a pot over</h2>
-<p>Holding the pot's button for ten seconds erases its setup — Wi-Fi, calibration and configuration — and returns it to setup mode so it can be claimed again. <strong>Calibration is not restorable</strong>, so each channel has to be calibrated again afterwards.</p>
+<p>Holding the button for ten seconds erases the pot's Wi-Fi, calibration and configuration and returns it to setup mode, ready to be claimed again.</p>
+<p><strong>Calibration does not come back.</strong> Each channel has to be calibrated again afterwards, and until it is, the pot will not claim to measure what it cannot.</p>
 
 <p class="updated">Last updated 14 August 2026 · <a href="./">Grodd</a> · <a href="privacy.html">Privacy</a></p>
 </div></body></html>

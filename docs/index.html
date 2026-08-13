@@ -9,34 +9,34 @@
     <!-- Fonts: Instrument Serif + Plus Jakarta Sans + Space Grotesk -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,0,600;9..144,1,400&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
         :root {
-            --bg-primary: #EEF1EB;        /* Soft sage-tinted background */
-            --bg-surface: #F6F8F5;        /* Light card surface */
+            --bg-primary: #ECEFE7;        /* Soft sage-tinted background */
+            --bg-surface: #F9FAF6;        /* Light card surface */
             --bg-card: #FFFFFF;           /* Crisp white card */
-            --bg-dark: #1E3A2B;           /* Deep Forest Green */
-            --bg-dark-surface: #14281E;   /* Deepest Forest Night */
+            --bg-dark: #1D4732;           /* Deep Forest Green */
+            --bg-dark-surface: #14251C;   /* Deepest Forest Night */
             
-            --text-main: #1C221E;         /* Dark Charcoal */
-            --text-muted: #647067;        /* Soft Sage Charcoal */
-            --text-light: #F4F6F3;        /* Warm Cream White */
-            --text-light-muted: #9BB0A3;  /* Muted Sage White */
+            --text-main: #14251C;         /* Dark Charcoal */
+            --text-muted: #5C6B60;        /* Soft Sage Charcoal */
+            --text-light: #F6F8F4;        /* Warm Cream White */
+            --text-light-muted: #93A197;  /* Muted Sage White */
 
-            --accent-green: #1E3A2B;      /* Brand Deep Green */
-            --accent-emerald: #28A745;    /* Active Status Green */
-            --accent-soft-green: #DCE5DC; /* Soft Green Pill Container */
+            --accent-green: #1D4732;      /* Brand Deep Green */
+            --accent-emerald: #4E8A5F;    /* Active Status Green */
+            --accent-soft-green: #ECEFE7; /* Soft Green Pill Container */
 
-            --border-subtle: rgba(30, 58, 43, 0.08);
-            --border-strong: rgba(30, 58, 43, 0.18);
+            --border-subtle: rgba(20, 37, 28, 0.08);
+            --border-strong: rgba(20, 37, 28, 0.18);
             --border-dark-subtle: rgba(255, 255, 255, 0.1);
 
-            --font-serif: 'Instrument Serif', Georgia, serif;
-            --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            --font-serif: 'Fraunces', Georgia, serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             --font-mono: 'Space Grotesk', monospace;
 
             --radius-sm: 12px;
@@ -148,9 +148,9 @@
         }
 
         .btn-dark:hover {
-            background: #12251B;
+            background: #14251C;
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(30, 58, 43, 0.2);
+            box-shadow: 0 12px 24px rgba(20, 37, 28, 0.2);
         }
 
         .btn-outline {
@@ -160,7 +160,7 @@
         }
 
         .btn-outline:hover {
-            background: rgba(30, 58, 43, 0.05);
+            background: rgba(20, 37, 28, 0.05);
             transform: translateY(-2px);
         }
 
@@ -272,9 +272,9 @@
         .app-phone-card {
             width: 320px;
             background: var(--bg-primary);
-            border: 8px solid #1C221E;
+            border: 8px solid #14251C;
             border-radius: 48px;
-            box-shadow: 0 30px 60px -10px rgba(30, 58, 43, 0.25);
+            box-shadow: 0 30px 60px -10px rgba(20, 37, 28, 0.25);
             padding: 20px 16px;
             position: relative;
             overflow: hidden;
@@ -283,7 +283,7 @@
         .phone-notch {
             width: 90px;
             height: 20px;
-            background: #1C221E;
+            background: #14251C;
             border-radius: 10px;
             margin: 0 auto 16px;
         }
@@ -402,7 +402,7 @@
             overflow: hidden;
             border-radius: var(--radius-md);
             margin-bottom: 20px;
-            background-color: #E8ECE6;
+            background-color: #D8DECF;
         }
 
         .preview-image {
@@ -498,7 +498,7 @@
 
         .spec-card h4 {
             font-family: var(--font-mono);
-            color: #8FD8A0;
+            color: #6CA87C;
             font-size: 0.85rem;
             margin-bottom: 8px;
             text-transform: uppercase;
@@ -541,7 +541,7 @@
         .arch-step-title {
             font-family: var(--font-mono);
             font-size: 0.85rem;
-            color: #8FD8A0;
+            color: #6CA87C;
             margin-bottom: 6px;
         }
 
@@ -551,7 +551,7 @@
         }
 
         .arch-arrow {
-            color: #8FD8A0;
+            color: #6CA87C;
             font-size: 1.2rem;
             font-weight: 700;
         }
@@ -591,9 +591,9 @@
         <div class="container nav-container">
             <a href="#" class="brand-logo">
                 <svg class="brand-icon-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 10C50 10 20 48 20 68 C20 84.5685 33.4315 98 50 98 C66.5685 98 80 84.5685 80 68 C80 48 50 10 50 10Z" fill="#1E3A2B"/>
-                    <path d="M50 38 C50 38 42 56 42 66 C42 70.4183 45.5817 74 50 74 C54.4183 74 58 70.4183 58 66 C58 56 50 38 50 38Z" fill="#EEF1EB"/>
-                    <path d="M50 74 L50 82" stroke="#EEF1EB" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M50 10C50 10 20 48 20 68 C20 84.5685 33.4315 98 50 98 C66.5685 98 80 84.5685 80 68 C80 48 50 10 50 10Z" fill="#1D4732"/>
+                    <path d="M50 38 C50 38 42 56 42 66 C42 70.4183 45.5817 74 50 74 C54.4183 74 58 70.4183 58 66 C58 56 50 38 50 38Z" fill="#ECEFE7"/>
+                    <path d="M50 74 L50 82" stroke="#ECEFE7" stroke-width="3" stroke-linecap="round"/>
                 </svg>
                 GRODD
             </a>
@@ -642,7 +642,7 @@
                                 <div style="font-size:0.7rem; color:var(--text-muted); margin-top:8px;">Water: 97% • Connected</div>
                             </div>
                             <div class="app-plant-card">
-                                <div class="app-ring-gauge" style="border-color:#28A745;">93%</div>
+                                <div class="app-ring-gauge" style="border-color:#4E8A5F;">93%</div>
                                 <div style="font-family:var(--font-serif); font-size:1.2rem; font-weight:600; color:var(--bg-dark);">Fiddle Fig</div>
                                 <div style="font-size:0.75rem; color:var(--accent-emerald);">● Healthy</div>
                                 <div style="font-size:0.7rem; color:var(--text-muted); margin-top:8px;">Water: 93% • Battery 85%</div>
@@ -820,7 +820,7 @@
 
             <!-- SYSTEM PIPELINE DIAGRAM -->
             <div class="arch-diagram">
-                <h4 style="font-family: var(--font-mono); color: #8FD8A0; font-size: 0.85rem; text-transform: uppercase;">End-to-End System Loop</h4>
+                <h4 style="font-family: var(--font-mono); color: #6CA87C; font-size: 0.85rem; text-transform: uppercase;">End-to-End System Loop</h4>
                 <div class="arch-pipeline">
                     <div class="arch-step">
                         <div class="arch-step-title">1. Planter Hardware</div>
@@ -852,8 +852,8 @@
             <div class="footer-flex">
                 <a href="#" class="brand-logo" style="font-size: 1.5rem;">
                     <svg class="brand-icon-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:26px; height:26px;">
-                        <path d="M50 10C50 10 20 48 20 68 C20 84.5685 33.4315 98 50 98 C66.5685 98 80 84.5685 80 68 C80 48 50 10 50 10Z" fill="#1E3A2B"/>
-                        <path d="M50 38 C50 38 42 56 42 66 C42 70.4183 45.5817 74 50 74 C54.4183 74 58 70.4183 58 66 C58 56 50 38 50 38Z" fill="#EEF1EB"/>
+                        <path d="M50 10C50 10 20 48 20 68 C20 84.5685 33.4315 98 50 98 C66.5685 98 80 84.5685 80 68 C80 48 50 10 50 10Z" fill="#1D4732"/>
+                        <path d="M50 38 C50 38 42 56 42 66 C42 70.4183 45.5817 74 50 74 C54.4183 74 58 70.4183 58 66 C58 56 50 38 50 38Z" fill="#ECEFE7"/>
                     </svg>
                     GRODD Ecosystems
                 </a>
