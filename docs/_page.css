@@ -1,0 +1,56 @@
+/* Shared by privacy.html and support.html. The landing page keeps its own
+   inline styles and its Three.js scene; these two are documents, so they
+   take the same palette and typefaces and none of the motion. */
+:root {
+  --bg-primary: #EEF1EB; --bg-surface: #F6F8F5; --bg-card: #FFFFFF;
+  --bg-dark: #1E3A2B; --text-main: #1C221E; --text-muted: #647067;
+  --text-light: #F4F6F3; --accent-green: #1E3A2B; --accent-soft-green: #DCE5DC;
+  --border-subtle: rgba(30, 58, 43, 0.08); --border-strong: rgba(30, 58, 43, 0.18);
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg-primary); color: var(--text-main);
+  font-family: var(--font-sans); font-size: 17px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.bar {
+  border-bottom: 1px solid var(--border-subtle); background: var(--bg-surface);
+}
+.bar .inner {
+  max-width: 46rem; margin: 0 auto; padding: 1rem 1.5rem;
+  display: flex; align-items: center; gap: .8rem;
+}
+.bar .mark {
+  width: 34px; height: 34px; border-radius: 9px; background: var(--accent-green);
+  color: var(--text-light); display: grid; place-items: center;
+  font-family: var(--font-serif); font-size: 20px;
+}
+.bar a.home { color: var(--accent-green); text-decoration: none; font-weight: 600; letter-spacing: -0.01em; }
+.wrap { max-width: 46rem; margin: 0 auto; padding: 3.5rem 1.5rem 6rem; }
+h1 { font-family: var(--font-serif); font-size: clamp(2.2rem, 6vw, 3rem); font-weight: 400; line-height: 1.1; margin: 0 0 .75rem; }
+h2 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 400; margin: 2.75rem 0 .6rem; }
+h3 { font-size: 1rem; margin: 1.75rem 0 .35rem; }
+p, li { color: var(--text-muted); }
+strong { color: var(--text-main); font-weight: 600; }
+a { color: var(--accent-green); }
+.lede { font-size: 1.15rem; color: var(--text-main); }
+.card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 16px; padding: 1.3rem 1.5rem; margin: 1.75rem 0;
+}
+.card p:last-child, .card ul:last-child { margin-bottom: 0; }
+.tag {
+  display: inline-block; font-family: var(--font-mono); font-size: .72rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-green);
+  background: var(--accent-soft-green); border-radius: 999px; padding: .3rem .7rem;
+  margin-bottom: 1.25rem;
+}
+table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .95rem; }
+th, td { text-align: left; padding: .6rem .5rem; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+th { color: var(--text-main); font-weight: 600; }
+td { color: var(--text-muted); }
+.updated { margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle); font-size: .9rem; color: var(--text-muted); }
+.foot { display: flex; gap: 1.5rem; margin-top: 1rem; }

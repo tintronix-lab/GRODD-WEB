@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — Grodd</title>
+<meta name="description" content="What the Grodd app and pots collect, what stays on your phone, and what never leaves it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_page.css">
+</head><body>
+<div class="bar"><div class="inner"><div class="mark">G</div><a class="home" href="./">Grodd</a></div></div>
+<div class="wrap">
+<span class="tag">Privacy</span>
+<h1>What Grodd knows about you</h1>
+<p class="lede">A plant pot does not need to know much. This page says exactly what the app and the pots collect, where it goes, and what never leaves your phone.</p>
+
+<h2>What never leaves your phone</h2>
+<div class="card">
+<p><strong>Photos of your plants.</strong> If you add a picture to a pot it is written to this app's own storage on the device and nowhere else. There is no upload endpoint for it, nothing in the pot-to-cloud protocol carries it, and a pot you share with someone shows them your pot's name — not your living room.</p>
+<p><strong>Your Wi-Fi password.</strong> During setup it travels from the phone to the pot over an encrypted Bluetooth session and is stored on the pot so it can rejoin your network. It is not sent to us and is not stored in the app.</p>
+</div>
+
+<h2>What your pots send</h2>
+<p>A pot reports to a Grodd server so that the app can show you what it is doing. Every value below is about the pot, not about you:</p>
+<table>
+<tr><th>Reading</th><th>Why</th></tr>
+<tr><td>Soil moisture, reservoir level</td><td>To show the plant's state and decide whether watering is due</td></tr>
+<tr><td>Battery voltage, Wi-Fi signal strength</td><td>To tell a flat pot from an out-of-range one</td></tr>
+<tr><td>The watering decision it reached</td><td>So the app can say why a pot did or did not water</td></tr>
+<tr><td>Pot identifier, hardware and firmware version</td><td>To send the right update to the right board</td></tr>
+<tr><td>Diagnostic records</td><td>Faults and events, so a pot that misbehaves can be understood</td></tr>
+</table>
+
+<h2>What the app stores about your account</h2>
+<ul>
+<li><strong>Your email address</strong>, if you sign in with email. If you use Sign in with Apple and choose to hide your address, we receive Apple's private relay address and never see your real one.</li>
+<li><strong>A session credential</strong>, kept in the iOS keychain so you stay signed in.</li>
+<li><strong>A notification token</strong>, if you allow notifications, so a pot that needs you can reach your phone.</li>
+<li><strong>Names and rooms you give your pots</strong>, and the settings you choose for them.</li>
+</ul>
+
+<h2>What we do not do</h2>
+<div class="card">
+<p>There is <strong>no analytics, advertising or tracking software</strong> in the app — no third-party SDK collecting behaviour, no advertising identifier, nothing sold or shared with data brokers. The app talks to one server: the Grodd service, or your own if you run it yourself.</p>
+</div>
+
+<h2>How long readings are kept</h2>
+<p>Pot readings are pruned automatically after <strong>35 days</strong>, except the most recent one from each pot, which is kept so the app can always say when a pot was last heard from. Diagnostic records and account data are kept until you delete them.</p>
+
+<h2>Deleting things</h2>
+<p>Removing a pot in the app takes it off your account along with its readings and its photo. To delete your account and everything attached to it, write to the address on the <a href="support.html">support page</a> and it will be removed.</p>
+
+<h2>Children</h2>
+<p>Grodd is not directed at children and does not knowingly collect anything from them.</p>
+
+<h2>Running your own server</h2>
+<p>The Grodd app can be pointed at a server you host. If you do that, your pots report to your machine and this policy describes only the app on your phone — what your own server keeps is yours to decide.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes in a way that affects what is collected, the date below changes with it.</p>
+
+<p class="updated">Last updated 14 August 2026 · <a href="./">Grodd</a> · <a href="support.html">Support</a></p>
+</div></body></html>
