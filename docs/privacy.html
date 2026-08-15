@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy — Grodd</title>
-<meta name="description" content="What the Grodd app and pots collect, what stays on your phone, and what never leaves it.">
+<meta name="description" content="What the Grodd app and pots collect, what stays on your phone, and what only leaves if you send it.">
 <link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,20 +17,43 @@
 </div></div>
 <div class="wrap">
 <h1>What Grodd knows about you</h1>
-<p class="lede">A plant pot does not need to know much. This page says exactly what the app and the pots collect, where it goes, and what never leaves your phone.</p>
+<p class="lede">A plant pot does not need to know much. This page says what the app and the pots collect, where it goes, and what stays on your phone unless you choose to send it.</p>
 
-<h2>What never leaves your phone</h2>
+<h2>What stays on your phone</h2>
 <div class="card">
-<p><strong>Photos of your plants.</strong> If you add a picture to a pot it is written to this app's own storage on the device and nowhere else. There is no upload endpoint for it, nothing in the pot-to-cloud protocol carries it, and a pot you share with someone shows them your pot's name — not your living room.</p>
-<p><strong>Your Wi-Fi password.</strong> During setup it travels from the phone to the pot over an encrypted Bluetooth session and is stored on the pot so it can rejoin your network. It is not sent to us and is not stored in the app.</p>
+<p><strong>Photos of your plants.</strong> A picture you add to a pot is written to this app's own storage on the device. Nothing uploads it on its own, nothing syncs it, and a pot you share with someone shows them the pot's name and room — not your living room. There is one exception and it is always your decision: see <a href="#send">what you can choose to send</a>.</p>
+<p><strong>What Grodd learns about your plants.</strong> When you correct a plant it got wrong, the app remembers the correction on the device so it recognises that plant next time. That learning is not uploaded.</p>
+<p><strong>Your Wi-Fi network name and password.</strong> They are never sent to a Grodd server as part of setup or reporting. Where they <em>are</em> kept is worth stating plainly, because two copies exist:</p>
+<ul>
+<li><strong>On the pot</strong>, so it can rejoin your network after a power cut. It travels there from your phone over an encrypted Bluetooth session. On the pot it is <strong>not encrypted</strong> — somebody holding the pot with a USB cable can read it off the chip. Treat a pot you give away or throw out the way you would treat an old router: reset it first.</li>
+<li><strong>In your phone's keychain</strong>, once a pot has successfully joined, so that setting up a second pot does not ask you to type the password again.</li>
+</ul>
+<p>The one path by which either could reach us is a crash report, and only if we ask for one — see <a href="#crash">when a pot crashes</a>.</p>
+</div>
+
+<h2 id="send">What you can choose to send</h2>
+<p>Two switches in <strong>Settings → Help improve Grodd</strong>. Both are off unless you turn them on, and neither is needed to use anything.</p>
+<div class="card">
+<p><strong>A photo, when recognition gets it wrong.</strong> If Grodd cannot name your plant, you can offer that one picture so the next version knows it. Turning the switch on sends nothing by itself — you also have to press send on that specific photo. Before anything is stored we strip the metadata your camera attached, including location.</p>
+<p>What happens to it then: <strong>a person at Grodd looks at it</strong>, decides whether it is usable, and files it under a plant name — which may not be the name you gave it. If it is used, what it <em>teaches</em> becomes part of a recognition update that other phones download. <strong>That part cannot be taken back.</strong> The picture itself we can delete; a recognition update already on somebody's phone stays there. We say so because the alternative is a promise we cannot keep.</p>
+<p>By sending a photo you give us permission to use it for that purpose — a non-exclusive, worldwide, royalty-free licence to store it, look at it, and compile what it measures into Grodd's recognition data. You keep ownership of your photograph. We do not publish it, sell it, or use it in advertising. To have one deleted, write to the address on the <a href="support.html">support page</a>.</p>
+<p><strong>Diagnostics.</strong> Errors and slow moments from the app, so we can find faults you would otherwise have to describe to us. No photos, no plant names. <strong>This one is not collecting anything yet</strong> — the switch records your permission, and the app that acts on it has not shipped. When it does, this page will say so and the date below will change. We would rather tell you that than let a switch imply something is happening.</p>
+</div>
+
+<h2>What you tell us about a plant, whether or not those switches are on</h2>
+<div class="card">
+<p>When Grodd suggests a plant and you accept it, correct it, or say none of them are right, the app tells us <strong>which it suggested, which you chose, and how close the match was</strong> — never the photo. It is how we find out which plants the recogniser is bad at. It carries no picture and no location, and it is the one thing in this section with no switch of its own.</p>
 </div>
 
 <h2>What your pots send</h2>
-<p>A pot reports to a Grodd server so that the app can show you what it is doing. Every value below is about the pot, not about you:</p>
+<p>A pot reports to a Grodd server so that the app can show you what it is doing. Most of it is about the pot. The row marked <em>about your room</em> is not, and is only sent by pots that have the sensor fitted.</p>
 <div class="card">
   <div class="row"><span class="dot water"></span><span>
     <span class="what">Soil moisture and reservoir level</span>
-    <div class="why">To show the plant's state and decide whether watering is due</div></span></div>
+    <div class="why">To show the plant's state, and to explain a watering the pot has already decided on by itself</div></span></div>
+  <div class="row"><span class="dot attention"></span><span>
+    <span class="what">Room temperature, humidity and light level — <em>about your room</em></span>
+    <div class="why">To judge whether a plant is somewhere it can live. Only on pots with the ambient sensor</div></span></div>
   <div class="row"><span class="dot good"></span><span>
     <span class="what">Battery voltage and Wi-Fi signal</span>
     <div class="why">To tell a flat pot from one that is simply out of range</div></span></div>
@@ -45,24 +68,53 @@
     <div class="why">Faults and events, so a pot that misbehaves can be understood</div></span></div>
 </div>
 
+<h2 id="crash">When a pot crashes</h2>
+<div class="card">
+<p>If a pot's software dies it keeps an image of its memory. That image is <strong>only ever uploaded when we ask that specific pot for it</strong> — it is not sent automatically, and only Grodd staff can request or read one. It is a copy of the chip's memory rather than a tidy report, so <strong>it can contain the Wi-Fi password</strong> that pot was using. If that concerns you, tell us on the <a href="support.html">support page</a> and we will not request one from your pots.</p>
+</div>
+
 <h2>What the app stores about your account</h2>
 <ul>
 <li><strong>Your email address</strong>, if you sign in with email. If you use Sign in with Apple and choose to hide your address, we receive Apple's private relay address and never see your real one.</li>
 <li><strong>A session credential</strong>, kept in the iOS keychain so you stay signed in.</li>
 <li><strong>A notification token</strong>, if you allow notifications, so a pot that needs you can reach your phone.</li>
 <li><strong>Names and rooms you give your pots</strong>, and the settings you choose for them.</li>
+<li><strong>A record of the switches above</strong> — each time you turn one on or off we keep the date, which switch, and which version of this page you were shown. It is how we know what you agreed to. It is added to, never rewritten.</li>
 </ul>
+
+<h2>Sharing a home with someone</h2>
+<div class="card">
+<p>You can share your pots with another person by entering <strong>their email address</strong>. Two things worth knowing first. They see your pots, their readings and their history, and the two of you can see each other's sign-in addresses. And there is <strong>no invitation to accept</strong> — access begins as soon as an account exists for that address, so an address typed wrongly today could be picked up by whoever registers it later. You can remove a share at any time in Settings.</p>
+</div>
+
+<h2>Who else can reach it</h2>
+<div class="card">
+<p><strong>Grodd staff.</strong> We run an operator console for the fleet, and from it we can open any pot, read its readings and its history, and act on it. That is how a pot that misbehaves gets diagnosed.</p>
+<p><strong>The company that hosts the server.</strong> Grodd's server is rented from <strong>one.com</strong> and stands in Europe. They hold the disk it runs on.</p>
+<p><strong>Apple</strong>, for notifications, if you allow them. Depending on your app version a notification may also pass through <strong>Expo's push service</strong> on its way to Apple. A notification carries the name you gave your pot and what it needs.</p>
+<p>That is the list. No analytics company, no advertising network, no data broker.</p>
+</div>
 
 <h2>What we do not do</h2>
 <div class="card">
-<p>There is <strong>no analytics, advertising or tracking software</strong> in the app — no third-party SDK collecting behaviour, no advertising identifier, nothing sold or shared with data brokers. The app talks to one server: the Grodd service, or your own if you run it yourself.</p>
+<p>There is <strong>no analytics, advertising or tracking software</strong> in the app — no third-party SDK collecting behaviour, no advertising identifier, nothing sold or shared with data brokers. Plant recognition runs <strong>on your phone</strong>; we do not send your photos to another company to identify them, and Grodd's plant assistant answers from your own pot's data on your own device.</p>
 </div>
 
-<h2>How long readings are kept</h2>
-<p>Pot readings are pruned automatically after <strong>35 days</strong>, except the most recent one from each pot, which is kept so the app can always say when a pot was last heard from. Diagnostic records and account data are kept until you delete them.</p>
+<h2>How long things are kept</h2>
+<ul>
+<li><strong>Pot readings — 35 days</strong>, except the most recent one from each pot, kept so the app can always say when a pot was last heard from.</li>
+<li><strong>Diagnostic records from pots — 90 days.</strong> Commands sent to a pot — 90 days. Alerts — 180 days.</li>
+<li><strong>Account data</strong> — until you delete the account.</li>
+<li><strong>A photo you chose to send</strong> — until you ask us to delete it, or we discard it.</li>
+</ul>
+<p>Backups are the honest footnote: the server is backed up nightly, those backups are kept for about a month, and a copy is held off the server. So something deleted today survives in a backup for a while after that.</p>
 
 <h2>Deleting things</h2>
-<p>Removing a pot in the app takes it off your account along with its readings and its photo. To delete your account and everything attached to it, write to the address on the <a href="support.html">support page</a> and it will be removed.</p>
+<p>To delete your account and everything attached to it, write to the address on the <a href="support.html">support page</a> and it will be removed.</p>
+<p><strong>Removing a single pot is not a deletion.</strong> It comes off your account, its name and room are cleared, and you stop seeing it — but its stored readings age out on the 35-day timer rather than going immediately. If you want a pot's history gone sooner than that, ask us and we will do it.</p>
+
+<h2>Your rights</h2>
+<p>Grodd is made by Tintronix Lab, in Sweden, and we are the controller for the data on this page. You can ask to see, correct, export or delete what we hold, and you can withdraw either consent above at any time — withdrawing stops anything further, but does not reach a recognition update already downloaded, for the reason given above. Our lawful basis for the two optional items is your consent; everything else is what we need to provide the product you asked for. Write to the address on the <a href="support.html">support page</a>. You may also complain to Integritetsskyddsmyndigheten (IMY), the Swedish data protection authority.</p>
 
 <h2>Children</h2>
 <p>Grodd is not directed at children and does not knowingly collect anything from them.</p>
@@ -71,7 +123,7 @@
 <p>The Grodd app can be pointed at a server you host. If you do that, your pots report to your machine and this policy describes only the app on your phone — what your own server keeps is yours to decide.</p>
 
 <h2>Changes</h2>
-<p>If this policy changes in a way that affects what is collected, the date below changes with it.</p>
+<p>If this policy changes in a way that affects what is collected, the version below changes with it. The version is recorded against every consent you give, so it is always possible to say which wording you were shown.</p>
 
-<p class="updated">Last updated 14 August 2026 · <a href="./">Grodd</a> · <a href="support.html">Support</a></p>
+<p class="updated">Version 2026-08-15.1 · Last updated 15 August 2026 · <a href="./">Grodd</a> · <a href="support.html">Support</a></p>
 </div></body></html>
